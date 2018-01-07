@@ -1,0 +1,128 @@
+body {
+    background-color: black;
+    overflow: hidden;
+}
+
+
+
+
+#fadeIn{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: auto;
+
+    background-color: black;
+
+
+    animation-name: fade;
+    animation-duration: 16s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 16s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-fill-mode: forwards;
+
+    z-index: 10;
+}
+
+@keyframes fade{
+    0% {opacity: 100}
+
+    100% {opacity: 0}
+
+  }
+
+@-webkit-keyframes fade {
+    0% {opacity: 100}
+
+    100% {opacity: 0}
+
+}
+
+
+
+
+
+
+canvas {
+    padding: 0;
+    margin: auto;
+    display: block;
+    width: 1000px;
+    height: 500px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+/*html, body {*/
+/*width:  100%;*/
+/*height: 100%;*/
+/*margin: 0px;*/
+/*}*/
+
+/*.canvas {*/
+/*margin-right: 500px;*/
+/*margin-left: auto;*/
+/*}*/
+
+/*#canvas-container {*/
+/*width: 100%;*/
+/*height: 100%;*/
+/*text-align:center;*/
+/*}*/
+
+/*canvas {*/
+/*display: inline;*/
+/*}*/
+
+
+
+
+/*!*CSS GENERATED AT*/
+/*http://www.bestcssbuttongenerator.com/#/0*!*/
+
+
+/*button {*/
+    /*background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #440fa6), color-stop(1, #7a1073));*/
+    /*background:-moz-linear-gradient(top, #440fa6 5%, #7a1073 100%);*/
+    /*background:-webkit-linear-gradient(top, #440fa6 5%, #7a1073 100%);*/
+    /*background:-o-linear-gradient(top, #440fa6 5%, #7a1073 100%);*/
+    /*background:-ms-linear-gradient(top, #440fa6 5%, #7a1073 100%);*/
+    /*background:linear-gradient(to bottom, #440fa6 5%, #7a1073 100%);*/
+    /*filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#440fa6', endColorstr='#7a1073',GradientType=0);*/
+    /*background-color:#440fa6;*/
+    /*-moz-border-radius:28px;*/
+    /*-webkit-border-radius:28px;*/
+    /*border-radius:28px;*/
+    /*border:1px solid #000000;*/
+    /*display:inline-block;*/
+    /*cursor:pointer;*/
+    /*color:#ffffff;*/
+    /*font-family:Arial;*/
+    /*font-size:17px;*/
+    /*padding:16px 31px;*/
+    /*text-decoration:none;*/
+    /*text-shadow:0px 1px 0px #010500;*/
+/*}*/
+/*button:hover {*/
+    /*background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #7a1073), color-stop(1, #440fa6));*/
+    /*background:-moz-linear-gradient(top, #7a1073 5%, #440fa6 100%);*/
+    /*background:-webkit-linear-gradient(top, #7a1073 5%, #440fa6 100%);*/
+    /*background:-o-linear-gradient(top, #7a1073 5%, #440fa6 100%);*/
+    /*background:-ms-linear-gradient(top, #7a1073 5%, #440fa6 100%);*/
+    /*background:linear-gradient(to bottom, #7a1073 5%, #440fa6 100%);*/
+    /*filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#7a1073', endColorstr='#440fa6',GradientType=0);*/
+    /*background-color:#7a1073;*/
+/*}*/
+
+/*button:active {*/
+    /*position:relative;*/
+    /*top:1px;*/
+/*}*/

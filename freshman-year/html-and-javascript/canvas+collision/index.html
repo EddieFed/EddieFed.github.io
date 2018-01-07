@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Collision</title>
+
+
+    <script>
+        var a;
+        var pictX = 250;
+        var pictY = 250;
+        var pictW = 128;
+        var pictH = 128;
+        var pictXamount;
+        var pictYamount;
+
+
+
+        var pict = new Image();     //Creates New Image and attach it to a reference variable
+        pict.src = "pictures/smile.png";    //Creates a pathname to an image to use. each image ,must have this.
+
+
+        function initialize() {
+            pictXamount = 5;
+            pictYamount = -5;
+
+            var ctx = document.getElementById("myCanvas").getContext("2d");
+            drawBackground();
+            drawSmile();
+
+        }
+
+
+        function startAnimation() {
+            animate();
+
+        }
+
+
+        function stopAnimation() {
+            cancelAnimationFrame(a);
+
+        }
+
+
+        function animate() {
+            a = requestAnimationFrame(animate);
+            drawBackground();
+            drawSmile();
+            smileCollision();
+        }
+
+
+        function drawBackground() {
+            var ctx = document.getElementById("myCanvas").getContext("2d");
+
+            ctx.fillStyle = "#AAAAAA";
+            ctx.fillRect(0,0,window.innerWidth,window.innerHeight);
+
+        }
+
+
+        function drawSmile() {
+            var ctx = document.getElementById("myCanvas").getContext("2d");
+
+            ctx.drawImage(pict, pictX, pictY, pictW, pictH);    //Picture Variables X, Y, H, and W
+            pictX = pictX + pictXamount;
+            pictY = pictY + pictYamount;
+
+        }
+
+        function smileCollision() {
+
+            if (pictX + pictW > 800) {
+                pictXamount = -5;
+            }
+
+            else if (pictX < 0) {
+                pictXamount = 5;
+            }
+
+            else if(pictY + pictH > 500) {
+                pictYamount = -5;
+            }
+
+            else if (pictY < 0 ) {
+                pictYamount = 5;
+            }
+
+        }
+
+    </script>
+
+</head>
+
+
+
+
+<body onload="initialize()">
+<canvas id="myCanvas" width="800" height="500"
+        style="border:1px solid #000000;">
+</canvas>
+<button type="button" onclick="startAnimation()">Start animation</button>
+<button type="button" onclick="stopAnimation()">Stop animation</button>
+
+</body>
+</html>
+
+
+
+
+
+

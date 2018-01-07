@@ -1,0 +1,50 @@
+.center{
+    text-align: center;
+
+}
+
+.left{
+    color: #000;
+}
+
+
+
+#b{
+    text-align: center;
+    color: #4a187a;
+}
+
+
+
+h2{
+    color: #4a187a;
+}
+
+
+
+p{
+    text-align: left;
+    color: #4a187a;
+    padding-left: 20px;
+}
+
+body{
+    font-family: "Comic Sans MS";
+}
+
+
+
+p a:hover:not(.active) {
+    color: darkgreen;
+}
+
+.blue{
+
+    color: blue;
+
+}
+
+
+.v {
+    color: black;
+}

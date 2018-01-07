@@ -1,0 +1,20 @@
+Up to 3 players (in multiplayer you can "Screw an opponent, make them answer a question in 10 seconds")
+7, 14 or 21 question game;
+
+Player (it will cycle) chooses the topic, a question is asked,
+first to buzz in can answer. if wrong, money subtracted equal to question value
+
+
+Multiple choice questions	$1000
+
+Special questions:
+DisOrDat (random word, choose what it means)		$2000
+Anagram		$3000
+Fill in the blank	$2000
+Picture question (question asked about the picture) - maybe	$1000
+
+
+Jack attack (Final round)	$
+shows a topic, then shows a category.
+player must choose something under that topic that fits the catagory
+(options are shown)

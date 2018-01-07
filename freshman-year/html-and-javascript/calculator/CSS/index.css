@@ -1,0 +1,36 @@
+.btn {
+    -webkit-border-radius: 28;
+    -moz-border-radius: 28;
+    border-radius: 28px;
+    text-shadow: 1px 1px 3px #696969;
+    font-family: Georgia;
+    color: #000000;
+    font-size: 50px;
+    background: #5706b3;
+    padding: 10px 20px 10px 20px;
+    border: dotted #000000 2px;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background: #b63cfc;
+    text-decoration: none;
+}
+
+input {
+    border: 1px solid #ccc;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    -moz-box-shadow: 2px 2px 3px #666;
+    -webkit-box-shadow: 2px 2px 3px #666;
+    box-shadow: 2px 2px 3px #666;
+    font-size: 20px;
+    padding: 4px 7px;
+    outline: 0;
+    -webkit-appearance: none;
+    width: 22.5%;
+}
+input:focus {
+    border-color: #280049;
+}

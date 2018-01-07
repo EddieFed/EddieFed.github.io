@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="344.0" prefWidth="533.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="investmentbank.FXMLController">
+   <children>
+      <AnchorPane fx:id="infoPage" prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <TabPane prefHeight="344.0" prefWidth="533.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab closable="false" text="Profile">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Label layoutX="22.0" layoutY="21.0" prefHeight="17.0" prefWidth="45.0" text="Name:" />
+                              <Label layoutX="22.0" layoutY="53.0" prefHeight="17.0" prefWidth="53.0" text="Balance: " />
+                              <Label fx:id="lblName" layoutX="102.0" layoutY="21.0" prefHeight="17.0" prefWidth="400.0" text="_____" />
+                              <Label fx:id="lblBalance" layoutX="102.0" layoutY="53.0" prefHeight="17.0" prefWidth="400.0" text="_____" />
+                              <Label layoutX="22.0" layoutY="87.0" prefHeight="17.0" prefWidth="70.0" text="Net worth:" />
+                              <Label fx:id="lblStockValue" layoutX="102.0" layoutY="87.0" prefHeight="17.0" prefWidth="400.0" text="_____" />
+                              <ListView fx:id="peopleListView" layoutX="290.0" layoutY="44.0" onMouseClicked="#changeUser" prefHeight="247.0" prefWidth="200.0" />
+                              <Button layoutX="290.0" layoutY="15.0" mnemonicParsing="false" onAction="#handleNewName" text="New User?" />
+                              <Label fx:id="lblStocksOwnedList" alignment="TOP_LEFT" layoutX="22.0" layoutY="121.0" prefHeight="121.0" prefWidth="172.0" text="Owned:" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab closable="false" text="Stock info">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <LineChart fx:id="chartStock" animated="false" layoutX="17.0" layoutY="19.0" prefHeight="278.0" prefWidth="500.0" title="Stocks">
+                                <xAxis>
+                                  <CategoryAxis side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis side="LEFT" upperBound="25.0" />
+                                </yAxis>
+                              </LineChart>
+                           </children></AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab fx:id="handleBuyGoogle" closable="false" text="Buy">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Button layoutX="35.0" layoutY="38.0" mnemonicParsing="false" onAction="#handleBuyApple" text="Buy Apple share" />
+                              <Button layoutX="35.0" layoutY="73.0" mnemonicParsing="false" onAction="#handleBuyGoogle" text="Buy Google share" />
+                              <Button layoutX="35.0" layoutY="108.0" mnemonicParsing="false" onAction="#handleBuyMicrosoft" text="Buy Microsoft share" />
+                              <Label layoutX="269.0" layoutY="16.0" prefHeight="17.0" prefWidth="285.0" text="Shares purchased" />
+                              <Label fx:id="lblAppleBought1" layoutX="269.0" layoutY="44.0" prefHeight="17.0" prefWidth="285.0" text="0" />
+                              <Label fx:id="lblGoogleBought1" layoutX="269.0" layoutY="77.0" prefHeight="17.0" prefWidth="285.0" text="0" />
+                              <Label fx:id="lblMicrosoftBought1" layoutX="269.0" layoutY="112.0" prefHeight="17.0" prefWidth="285.0" text="0" />
+                              <Label fx:id="lblApple1" layoutX="208.0" layoutY="44.0" text="\$20" />
+                              <Label fx:id="lblGoogle1" layoutX="208.0" layoutY="77.0" text="\$15" />
+                              <Label fx:id="lblMicrosoft1" layoutX="208.0" layoutY="112.0" text="\$25" />
+                              <Label layoutX="209.0" layoutY="16.0" text="Price" />
+                              <TextField fx:id="txtAppleBuyRequest" layoutX="165.0" layoutY="38.0" prefHeight="25.0" prefWidth="30.0" text="0" />
+                              <TextField fx:id="txtGoogleBuyRequest" layoutX="165.0" layoutY="73.0" prefHeight="25.0" prefWidth="30.0" text="0" />
+                              <TextField fx:id="txtMicrosoftBuyRequest" layoutX="165.0" layoutY="108.0" prefHeight="25.0" prefWidth="30.0" text="0" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab closable="false" text="Sell">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Button layoutX="35.0" layoutY="38.0" mnemonicParsing="false" onAction="#handleSellApple" text="Sell Apple share" />
+                              <Button layoutX="35.0" layoutY="73.0" mnemonicParsing="false" onAction="#handleSellGoogle" text="Sell Google share" />
+                              <Button layoutX="35.0" layoutY="108.0" mnemonicParsing="false" onAction="#handleSellMicrosoft" text="Sell Microsoft share" />
+                              <Label layoutX="269.0" layoutY="16.0" prefHeight="17.0" prefWidth="255.0" text="Shares purchased" />
+                              <Label fx:id="lblAppleBought" layoutX="269.0" layoutY="44.0" prefHeight="17.0" prefWidth="255.0" text="0" />
+                              <Label fx:id="lblGoogleBought" layoutX="269.0" layoutY="77.0" prefHeight="17.0" prefWidth="285.0" text="0" />
+                              <Label fx:id="lblMicrosoftBought" layoutX="269.0" layoutY="112.0" prefHeight="17.0" prefWidth="285.0" text="0" />
+                              <Label fx:id="lblApple2" layoutX="208.0" layoutY="44.0" text="\$20" />
+                              <Label fx:id="lblGoogle2" layoutX="208.0" layoutY="77.0" text="\$15" />
+                              <Label fx:id="lblMicrosoft2" layoutX="208.0" layoutY="112.0" text="\$25" />
+                              <Label layoutX="209.0" layoutY="16.0" text="Price" />
+                              <TextField fx:id="txtAppleSellRequest" layoutX="165.0" layoutY="38.0" prefHeight="25.0" prefWidth="30.0" text="0" />
+                              <TextField fx:id="txtGoogleSellRequest" layoutX="165.0" layoutY="73.0" prefHeight="25.0" prefWidth="30.0" text="0" />
+                              <TextField fx:id="txtMicrosoftSellRequest" layoutX="165.0" layoutY="108.0" prefHeight="25.0" prefWidth="30.0" text="0" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+            <Button layoutX="10.0" layoutY="308.0" mnemonicParsing="false" onAction="#handleRunDayCycle" text="Next day" />
+         </children>
+      </AnchorPane>
+        <AnchorPane fx:id="registerPage" layoutX="164.0" layoutY="127.0" prefHeight="90.0" prefWidth="205.0" visible="false">
+            <children>
+                    <Button layoutX="80.0" layoutY="33.0" mnemonicParsing="false" onAction="#handleRegister" text="Click!" />
+                    <Label layoutX="17.0" layoutY="6.0" text="Click to register a stock account!" />
+            </children>
+        </AnchorPane>
+      <AnchorPane fx:id="namePage" layoutX="125.0" layoutY="72.0" prefHeight="200.0" prefWidth="284.0" visible="false">
+         <children>
+            <Label fx:id="lblTypeName" alignment="CENTER" layoutX="99.0" layoutY="77.0" text="Type your name" />
+            <TextField fx:id="txtName" alignment="CENTER" layoutX="68.0" layoutY="100.0" promptText="Name" />
+            <Button layoutX="115.0" layoutY="131.0" mnemonicParsing="false" onAction="#setName" text="Submit" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="balanceLow" layoutX="-1.0" layoutY="-1.0" prefHeight="344.0" prefWidth="533.0" visible="false">
+         <children>
+            <Label layoutX="127.0" layoutY="120.0" text="Your balance is too low, Please try selling some Shares!" />
+            <Button layoutX="256.0" layoutY="147.0" mnemonicParsing="false" onAction="#hideBalanceLow" text="OK" />
+         </children>
+      </AnchorPane>
+      
+      
+   </children>
+</AnchorPane>

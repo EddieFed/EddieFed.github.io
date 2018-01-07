@@ -1,0 +1,694 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BreakTwo</title>
+
+    <link rel="stylesheet" type="text/css" href="index.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+    <script>
+
+
+        //General Idea:
+        //Just like normal Breakout you must clear the bricks but the twist
+        //is that you have two sides that must be cleared, the first 10 seconds
+        //you can be on either side but when the timer reaches 0 one side will
+        //be blocked off the timer restarts and when it reaches 0 it switches sides.
+        //When this happens if the ball goes into the blocked area
+        //you will lose a life. There are 5 lives granted at the start of the game.
+        //       __ __                        ㅤ                  __ __
+        //      |_1| 5|                     ㅤ                   |_5|_9|
+        //      | 2|__|                     ㅤ                    __|10|
+        //      |__|               ㅤ   |                        |_6|__|
+        //      | 3|__              ●   |                       |_7|11|
+        //      |__|_6|              ㅤ |                        |_8|12|
+        //      |_4|                 ㅤ                             |__|
+        //
+        //Each square is 83 high
+        //
+
+        //var <var name> = new Image();
+        //<var name>.src = "resources/<picture name>";
+
+        //Context of canvas:
+        //var ctx = document.getElementById("Canvas").getContext("2d");
+        //
+        //jquery version:
+        //var ctx = $("canvas")[0].getContext("2d");
+
+
+
+        var a;
+//        var objectBooleans = [
+//            /** First Column **/ false, false, false, false,
+//            /** Second Column **/ false, false,
+//            /** Third Column **/ false, false, false, false,
+//            /** Fourth Column **/ false, false, false, false  ];
+
+//        var objectY = [
+//            /** First Column **/ 6, (5 + 79 + 5), (5 + 79*3 + 5*2), (5 + 79*5 + 5*3),
+//            /** Second Column **/ 6, (5 + 79*4 + 5*2),
+//            /** Third Column **/ 6, (5 + 79*2 + 5*2), (5 + 79*3 + 5*3), (5 + 79*4 + 5*4),
+//            /** Fourth Column **/ 6, (10 + 79), (5 + 79*3 + 5*3), (5 + 79*4 + 5*4)  ];
+
+        var objectBooleans = [
+            /** First Column **/ true, true, true, true,
+            /** Second Column **/ true, true,
+            /** Third Column **/ true, true, true, true,
+            /** Fourth Column **/ true, true, true, true  ];
+
+        var objectX = [
+            /** First Column **/ 5, 5, 5, 5,
+            /** Second Column **/ 60, 60,
+            /** Third Column **/ 890, 890, 889, 890,
+            /** Fourth Column **/ 945, 945, 945, 945  ];
+
+        var objectY = [
+            /** First Column **/ 6, 89, 252, 415,
+            /** Second Column **/ 6, 331,
+            /** Third Column **/ 6, 171, 257, 341,
+            /** Fourth Column **/ 6, 89, 257, 341  ];
+
+        var objectWidth = [
+            /** First Column **/ 50, 48, 50, 48,
+            /** Second Column **/ 50, 50,
+            /** Third Column **/ 50, 50, 49, 50,
+            /** Fourth Column **/ 49, 50, 49, 50  ];
+
+        var objectHeight = [
+            /** First Column **/ 79, 158, 158, 79,
+            /** Second Column **/ 163, 79,
+            /** Third Column **/ 79, 79, 79, 79,
+            /** Fourth Column **/ 79, 163, 79, 153  ];
+
+
+        var circleX = 480;
+        var circleY = 250;
+        var r = 10;
+        var dx = 7;
+        var dy = 5.6;
+
+
+        var playerBarX = 497;
+        var playerBarY = 50;
+        var playerBarH = 75;
+        var playerBarW = 6;
+
+
+        var moveUp;
+        var moveDown;
+        var timerInterval;
+        var catchBall = false;
+        var gameStarted = false;
+
+
+        var score = 0;
+        var timeCount = 10;
+        var rightSideRed = true;
+        var leftSideRed = false;
+
+        var animateOn = false;
+
+        var circleOnRight = true;
+        var circleOnLeft = false;
+        var winGame = false;
+
+
+
+
+
+
+
+        //pictures:
+
+//            var winGame;
+//            var youWin = new Image;
+//            youWin.src = "resources/pictures/win.png";
+            var startText = new Image;
+            startText.src = "resources/pictures/start.png";
+
+            var white = new Image;
+            white.src = "resources/pictures/white.jpg";
+
+//            var speedOrb = new Image;
+//            speedOrb.src = "resources/pictures/speed.png";
+//
+//            var growOrb = new Image;
+//            growOrb.src = "resources/pictures/grow.png";
+//        //
+//
+
+
+
+
+
+        //audio:
+            var music = new Audio("resources/audio/HEAVY(Remix).m4a");
+            music.volume = 0.6;
+//            music.play();
+
+            var blockBreak = new Audio("resources/audio/blockbreak.wav");
+            blockBreak.volume = 0.6;
+
+//            var grow = new Audio("resources/audio/grow.wav");
+//            grow.volume = 0.6;
+//
+//            var speed = new Audio("resources/audio/speed.wav");
+//            speed.volume = 0.6;
+
+        //
+
+
+        function timer() {
+
+            timeCount -= 1;
+
+            if (timeCount == -1) {
+
+                if (rightSideRed == true) {
+                    rightSideRed = false;
+                    leftSideRed = true;
+
+                }
+
+                else if (rightSideRed == false) {
+                    leftSideRed = false;
+                    rightSideRed = true;
+                }
+
+                timeCount = 10;
+
+            }
+        }
+
+
+        function initialize() {
+            window.resizeTo(1000, 500);
+            var ctx = $("canvas")[0].getContext("2d");
+            drawBackground("black");
+            drawPlayerBar();
+            drawCircle();
+            drawObjects();
+
+
+
+            ctx.drawImage(startText, 0, 0, 1000, 500);
+
+
+
+        }
+
+
+        function startAnimation() {
+            if (animateOn === false) {
+                animateOn = true;
+                document.getElementById('Button1').style.visibility = 'hidden';
+                document.getElementById('Button2').style.visibility = 'hidden';
+                animate();
+            }
+
+            else if(animateOn === true) {
+                alert("Please restart before starting again");
+            }
+        }
+
+
+        function stopAnimation() {
+            var ctx = $("canvas")[0].getContext("2d");
+            animateOn = false;
+
+            if (winGame == true) {
+//                ctx.drawImage(youWin, 120, 0, 750, 500);
+
+                drawScore(347, 250);
+            }
+
+            else {
+                ctx.drawImage(startText, 0, 0, 1000, 500);
+//            document.getElementById('Button1').style.visibility = 'visible';
+//            document.getElementById('Button2').style.visibility = 'visible';
+            }
+
+            cancelAnimationFrame(a);
+
+        }
+
+
+        function animate(){
+            a = requestAnimationFrame(animate);
+            var barColor = "#bdbdbd";
+
+
+            if (moveUp == true && playerBarY > 0) {
+                playerBarY = playerBarY - 7;
+            }
+
+            if (moveDown == true && (playerBarY + playerBarH < 500)) {
+                playerBarY = playerBarY + 7;
+            }
+
+
+            if (catchBall == true) {
+                barColor = "#7FFF00";
+            }
+
+            drawBackground("black");
+
+
+            drawObjects();
+            drawRed();
+
+            drawTime();
+            drawScore(347, 445);
+
+
+            drawPlayerBar(barColor);
+            drawCircle();
+
+            objectCollide();
+
+
+            checkWin();
+
+
+            if (winGame == true) {
+                var ctx = $("canvas")[0].getContext("2d");
+
+                ctx.fillStyle = "#000000";
+                ctx.fillRect(0, 0, 1000, 500);
+
+                stopAnimation();
+            }
+
+
+
+
+
+
+
+        }
+
+
+        function drawBackground(color) {
+            var ctx = $("canvas")[0].getContext("2d");
+            ctx.fillStyle = color; // Midnight Blue
+            ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+        }
+
+
+        var collideWithBar = false;
+        function drawCircle() {
+            var ctx = $("canvas")[0].getContext("2d");
+            ctx.beginPath();
+
+
+
+            if (((circleX + r) >= playerBarX - 10) && ((circleX - r) <= playerBarX + playerBarW + 10) && ((circleY + r) >= playerBarY - 10) && ((circleY - r) <= playerBarY + playerBarH + 10)) {
+                collideWithBar = true;
+
+                if (circleX > 521) {
+                    circleOnLeft = false;
+                    circleOnRight = true;
+                }
+
+                if (circleX < 479) {
+                    circleOnRight = false;
+                    circleOnLeft = true;
+                }
+            }
+
+            else {
+                collideWithBar = false;
+            }
+
+
+
+            function catchTheBall() {
+                if (circleOnLeft == true) {
+                    circleX = 480;
+                }
+
+                if (circleOnRight == true) {
+                    circleX = 520;
+                }
+
+                circleY = playerBarY + playerBarH/2;
+
+            }
+
+            if (gameStarted == false) {
+                catchTheBall();
+            }
+
+            if (catchBall == true && collideWithBar == true) {
+                catchTheBall();
+            }
+
+
+            ctx.arc(circleX, circleY, 10, 0, Math.PI*2 , true);
+            ctx.fillStyle = '#bdbdbd';
+            ctx.fill();
+            ctx.lineWidth = 5;
+            ctx.strokeStyle = '#bdbdbd';
+            ctx.stroke();
+
+
+            //wall collision//
+            if ((circleX + (r) >= 1000) || (circleX - (r) <= 0)) {
+                dx = -dx;
+            }
+            if ((circleY + (r) >= 500) || (circleY - (r) <= 0)) {
+                dy = -dy;
+            }
+
+            //Bar collision//
+            if (((circleX + r) >= playerBarX) && ((circleX - r) <= playerBarX + playerBarW) && ((circleY + r) >= playerBarY) && ((circleY - r) <= playerBarY + playerBarH)) {
+                dx = -dx;
+
+
+            }
+
+
+//            if (speedActive == true)
+//
+//
+
+
+            circleX += dx;
+            circleY += dy;
+
+
+        }
+
+
+        function drawPlayerBar(color) {
+            var ctx = $("canvas")[0].getContext("2d");
+            ctx.fillStyle = color;
+            ctx.fillRect(playerBarX, playerBarY, playerBarW, playerBarH);
+            ctx.stroke();
+
+
+        }
+
+
+        // Inspired by "http://stackoverflow.com/questions/14389864/javascript-html5-making-a-canvas-animation-using-wasd-to-move-around-a-rectang"
+        $(document).keydown(function (event) {
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+
+            if (keycode == 32) {
+                if (gameStarted == true) {
+
+                    if (catchBall == true) {
+                        catchBall = false;
+                        collideWithBar = false;
+                    }
+
+                    else {
+                        catchBall = true
+                    }
+                }
+
+
+                if (gameStarted ==  false) {
+                    gameStarted = true;
+                    timerInterval = setInterval("timer()", 400);
+                }
+
+
+
+
+
+
+            }
+
+            if (keycode == 84) {
+                restartGame()
+            }
+
+            if ((keycode == 87 || keycode == 68 /**|| keycode == 38 || keycode == 39**/)) //W, D //, UP, or RIGHT Key
+            {
+                moveUp = true;
+            }
+
+            if ((keycode == 83 || keycode == 65 /** || keycode == 40 || keycode == 37**/)) //S, A //, DOWN, or LEFT Key
+            {
+
+                moveDown = true;
+            }
+
+            if (keycode == 27) {
+                stopAnimation();
+                }
+
+            if (keycode == 13) {
+                startAnimation();
+            }
+
+            if (keycode == 39) {
+                if (gameStarted ==  false) {
+                    circleOnRight = true;
+                    circleOnLeft = false;
+                    dx = -dx;
+                }
+            }
+
+            if  (keycode == 37) {
+                if (gameStarted ==  false) {
+                    circleOnLeft = true;
+                    circleOnRight = false;
+                    dx = -dx;
+                }
+            }
+
+        });
+        $(document).keyup(function (event) {
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+
+
+            if ((keycode == 87 || keycode == 68 /**|| keycode == 38 || keycode == 390**/)) //W, D, UP, or RIGHT Key
+            {
+
+                moveUp = false;
+
+            }
+
+            if ((keycode == 83 || keycode == 65 /** || keycode == 40 || keycode == 37**/)) //S, A, DOWN, or LEFT Key
+            {
+
+                moveDown = false;
+            }
+
+        });
+
+
+        function drawObjects() {
+            var ctx = $("canvas")[0].getContext("2d");
+
+
+            //repeat for every location in array
+            for (x in objectBooleans) {
+
+                if (objectBooleans[x] == true) {
+                    ctx.drawImage(white, objectX[x], objectY[x], objectWidth[x], objectHeight[x]);
+
+                }
+
+            }
+
+
+        }
+
+
+        function objectCollide() {
+
+            for (i = 0; i < (objectBooleans.length); i++) {
+
+                //when circle collides with blocks
+                if ((((circleX + r) >= objectX[i]) && ((circleX - r) <= (objectX[i] + objectWidth[i]))
+                        && ((circleY + r) >= objectY[i]) && ((circleY - r) <= (objectY[i] + objectHeight[i])))) {
+
+                    if (objectBooleans[i] == true) {
+                        objectBooleans[i] = false;
+
+
+                        if ((rightSideRed  == true && circleX > 500) || (leftSideRed  == true && circleX < 500)) {
+                            score -= 500;
+                        }
+
+                        if ((rightSideRed  == false && circleX > 500) || (leftSideRed  == false && circleX < 500)) {
+                            score += 1000;
+                        }
+
+//                        blockBreak.play();
+//                        dx = -dx;
+                        if (circleY < objectY[i] || circleY > objectY[i] + objectHeight[i]) {
+                            dx = dx;
+                            dy = -dy;
+                        }
+                        else {
+                            dx = -dx;
+                        }
+
+                        blockBreak.play();
+
+                    }
+
+                }
+
+            }
+}
+
+
+        function drawTime() {
+            var ctx = $("canvas")[0].getContext("2d");
+            ctx.globalAlpha = 0.5;
+            ctx.font = "100px verdana";
+            ctx.fillStyle = ("#00007F");
+            var xOffset = 500 - 34;
+
+                if (timeCount == 10) {
+                    xOffset = 500 - 59
+                }
+
+            ctx.fillText(String(timeCount), xOffset, 100);
+            ctx.globalAlpha = 1;
+
+        }
+
+
+        function drawRed() {
+            var ctx = $("canvas")[0].getContext("2d");
+            var gradient;
+
+            ctx.globalAlpha = 0.3;
+            if (rightSideRed == true) {
+
+                gradient = ctx.createLinearGradient(1000, 0 , 500 ,0);
+                gradient.addColorStop(1,"black");
+                gradient.addColorStop(0,"red");
+                ctx.fillStyle = gradient;
+
+                ctx.fillRect(500, 0, 500, 500);
+            }
+
+            if (leftSideRed == true) {
+
+                gradient = ctx.createLinearGradient(500, 0 , 0 ,0);
+                gradient.addColorStop(0,"black");
+                gradient.addColorStop(1,"red");
+                ctx.fillStyle = gradient;
+
+                ctx.fillRect(0, 0, 500, 500);
+            }
+            ctx.globalAlpha = 1;
+
+        }
+
+
+        function drawScore(x, y) {
+            var ctx = $("canvas")[0].getContext("2d");
+
+            ctx.globalAlpha = 0.5;
+            ctx.font = "50px verdana";
+            ctx.fillStyle = ("#00007F");
+
+            ctx.fillText(String("Score:" + score), x, y);
+            ctx.globalAlpha = 1;
+
+        }
+
+
+        function checkWin() {
+            var win = true;
+
+            for (i = 0; i < (objectBooleans.length); i++) {
+                if (objectBooleans[i] == true) {
+                    win = false
+                }
+            }
+
+            if (win == true) {
+
+                setInterval(wingame(), 150);
+
+                function wingame() {
+//                    alert("hello");
+                    winGame = true;
+                }
+
+            }
+
+        }
+
+        
+        function restartGame() {
+//            location.reload();
+
+            objectBooleans = [
+                /** First Column **/ true, true, true, true,
+                /** Second Column **/ true, true,
+                /** Third Column **/ true, true, true, true,
+                /** Fourth Column **/ true, true, true, true  ];
+//
+//            timerInterval = setInterval.terminate();
+
+            circleX = 480;
+            circleY = 250;
+            r = 10;
+            dx = 7;
+            dy = 5.6;
+
+
+            playerBarX = 497;
+            playerBarY = 50;
+            playerBarH = 75;
+            playerBarW = 6;
+
+
+            catchBall = false;
+            gameStarted = false;
+
+
+            score = 0;
+            timeCount = 10;
+            rightSideRed = true;
+            leftSideRed = false;
+
+            animateOn = false;
+
+            circleOnRight = true;
+            circleOnLeft = false;
+            winGame = false;
+        }
+
+
+
+    </script>
+</head>
+<body onload="initialize()">
+
+<div id="canvas-container">
+<canvas class ="Canvas" id="Canvas" width="1000" height="500" style="border:3px solid #ffffff"> Canvas Not Supported in your browser</canvas>
+</div>
+
+<br>
+
+<button style="visibility: hidden;" id="Button1" type="button" onclick="startAnimation()">Start</button>
+<button style="visibility: hidden;" id="Button2" type="button" onclick="stopAnimation()">Stop</button>
+
+<!--<p>How To play: <br>-->
+<!--Hit the ball with the bat towards the NON-red side <br>-->
+<!--The red side switches every 5 seconds.</p>-->
+
+
+<div id="fadeIn"></div>
+
+
+
+
+</body>
+</html>

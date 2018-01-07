@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculator</title>
+
+    <link rel="icon"
+          type="image/ico"
+          href="Resources/Pictures/favicon.ico" />
+
+    <script src="JS/index.js"></script>
+    <link rel="stylesheet" type="text/css" href="CSS/index.css">
+
+
+</head>
+<body>
+<p>
+    Use this as your model for an equation
+    <br>
+    <br>
+    (Single digit number)(Operator)(single digit number)<br>
+    E.x - "1+3 = 4
+</p>
+
+
+<!-- the input box will clear upon click-->
+<input id="input" type="TEXT" onclick="clearNumbers()">
+
+
+
+<br><br>
+
+
+
+<button class="btn" onclick="inputNumber(1)" type="button"> 1 </button>
+
+<button class="btn" onclick="inputNumber(2)" type="button"> 2 </button>
+
+<button class="btn" onclick="inputNumber(3)" type="button"> 3 </button>
+
+<button class="btn" onclick="clearNumbers()" type="button"> C </button>
+
+<button class="btn" onclick="solveProblem()" type="button"> = </button>
+
+
+
+<br>
+
+
+
+<button class="btn" onclick="inputNumber(4)" type="button"> 4 </button>
+
+<button class="btn" onclick="inputNumber(5)" type="button"> 5 </button>
+
+<button class="btn" onclick="inputNumber(6)" type="button"> 6 </button>
+
+<button class="btn" onclick="inputNumber('x')" type="button"> x </button>
+
+<button class="btn" onclick="inputNumber('÷')" type="button"> ÷ </button>
+
+
+
+<br>
+
+
+
+<button class="btn" onclick="inputNumber(7)" type="button"> 7 </button>
+
+<button class="btn" onclick="inputNumber(8)" type="button"> 8 </button>
+
+<button class="btn" onclick="inputNumber(9)" type="button"> 9 </button>
+
+<button class="btn" onclick="inputNumber('-')" type="button">  -  </button>
+
+<button class="btn" onclick="inputNumber('+')" type="button"> + </button>
+
+
+
+<br>
+
+
+
+<button class="btn" onclick="inputNumber(0)" type="button"> 0 </button>
+
+
+</body>
+</html>

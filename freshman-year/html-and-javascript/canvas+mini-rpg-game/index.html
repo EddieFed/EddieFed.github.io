@@ -1,0 +1,347 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Game</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+    <script>
+
+        var a;
+        var scoreCount = 0;
+        var loseGame = false;
+        var winGame = false;
+
+        var pictB = new Image();
+        pictB.src = "pictures/Background.png";
+
+
+        var pict = new Image();
+        pict.src = "pictures/dwarf.png";
+        var pictX = 250;
+        var pictY = 250;
+        var pictW = 50;
+        var pictH = 50;
+
+
+        var pict2 = new Image();
+        pict2.src = "pictures/orc.png";
+        var pict2X = 100;
+        var pict2Y = 100;
+        var pict2W = 50;
+        var pict2H = 50;
+
+
+        var pictG = new Image();
+        pictG.src = "pictures/GoldPile.png";
+        var pictGX = 1000;
+        var pictGY = 1000;
+        var pictGW = 50;
+        var pictGH = 50;
+
+        var pictG2 = new Image();
+        pictG2.src = pictG.src;
+        var pictG2X = 450;
+        var pictG2Y = 300;
+        var pictG2W = 50;
+        var pictG2H = 50;
+
+
+        var pictI = new Image();
+        pictI.src = "pictures/Instructions.png";
+        var pictIX = 0;
+        var pictIY = 0;
+        var pictIW = 800;
+        var pictIH = 500;
+
+        var pictGame = new Image();
+        pictGame.src = "pictures/Game Over.jpg";
+        var pictGameX = 0;
+        var pictGameY = 0;
+        var pictGameW = 800;
+        var pictGameH = 500;
+
+
+        function initialize() {
+
+            drawBackground();
+            drawOrc();
+            drawDwarf();
+            drawGold2();
+            drawInstructions();
+        }
+
+        function startAnimation() {
+            if (loseGame === false){
+                animate();
+
+            }
+        }
+
+
+
+        function stopAnimation() {
+            cancelAnimationFrame(a);
+
+        }
+
+
+        function animate() {
+            a = requestAnimationFrame(animate);
+            pictIX = 1000;
+            pictIY = 1000;
+            drawBackground();
+
+            getGold2();
+            drawGold2();
+            getGold();
+            dwarfCollision();
+            drawGold();
+            drawOrc();
+            drawDwarf();
+            document.getElementById('scoreCount').innerHTML = "Gold: " + scoreCount;
+
+            //If all gold is picked up alert a win message
+            if (winGame === false){
+                if (scoreCount === 2) {
+                    winGame = true;
+                    alert("You picked up all the gold!");
+                    alert("You Win!");
+                }
+        }
+        }
+
+        function drawBackground() {
+            var ctx = document.getElementById("myCanvas").getContext("2d");
+            ctx.fillStyle = "#111111";
+            ctx.drawImage(pictB, 0, 0,800,500);
+
+        }
+
+        function drawDwarf() {
+            var ctx = document.getElementById("myCanvas").getContext("2d");
+            ctx.drawImage(pict,pictX,pictY,pictW,pictH);
+
+        }
+
+        function drawGold() {
+            var ctx = document.getElementById("myCanvas").getContext("2d");
+            ctx.drawImage(pictG,pictGX,pictGY,pictGW,pictGH);
+
+        }
+
+        function drawGold2() {
+            var ctx = document.getElementById("myCanvas").getContext("2d");
+            ctx.drawImage(pictG2,pictG2X,pictG2Y,pictG2W,pictG2H);
+
+        }
+
+        function drawOrc() {
+            var ctx = document.getElementById("myCanvas").getContext("2d");
+            ctx.drawImage(pict2,pict2X,pict2Y,pict2W,pict2H);
+
+        }
+
+        function drawInstructions() {
+            var ctx = document.getElementById("myCanvas").getContext("2d");
+            ctx.drawImage(pictI,pictIX,pictIY,pictIW,pictIH);
+        }
+
+
+        $(document).keydown(function (event) {
+
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+
+            if (keycode == 65 && pictX > 0) //A Key
+            {
+                pictX = pictX - 50;
+            }
+
+            if (keycode == 87 && pictY > 0) //W Key
+            {
+                pictY = pictY - 50;
+            }
+
+            if ((keycode == 83) && ((pictY + pictH) < 500)) //S Key
+            {
+                pictY = pictY + 50;
+            }
+
+            if ((keycode == 68) && ((pictX + pictW) < 800)) //D Key
+            {
+                pictX = pictX + 50;
+            }
+
+        });
+
+
+        var fightOrcPrompt = false;
+        var lavaPrompt = false;
+//        /** Checks to see if Dwarf Collides with Orc or lava**/
+        function dwarfCollision() {
+
+//            /**When the character is on a tile diagonal or next to the Orc, Prompt for a fight**/
+            if (pictX + pictW > pict2X - 25 && pictX < pict2X + pict2W + 25 && pictY + pictH > pict2Y  - 25 && pictY < pict2Y + pict2H + 25) {
+
+
+                    if (fightOrcPrompt === false){
+                        setTimeout(fightOrcPromptFunction, 0);
+                        fightOrcPrompt = true;
+
+
+                        function fightOrcPromptFunction() {
+                            var fightOrc = prompt("Fight Orc?");
+
+                            if (fightOrc === null) {
+                                alert("You fled from the orc");
+                                setTimeout(resetOrcPrompt3, 1000);
+
+                                function resetOrcPrompt3() {
+                                    fightOrcPrompt = false;
+                                }
+                            }
+
+                            fightOrc.toLowerCase();
+
+                            if (fightOrc === "yes") {
+                                var winOrLose = Math.trunc(Math.random() * 3);
+
+                                setTimeout(winLoss, 300);
+
+                                function winLoss() {
+
+                                if (winOrLose === 1 || winOrLose === 2) {
+                                    pict2X = 1000;
+                                    pict2Y = 1000;
+                                    alert("You beat the Orc!");
+
+                                    pictGX = 100;
+                                    pictGY = 100;
+                                }
+
+                                else if (winOrLose === 0) {
+                                    alert("The Orc Slaughtered You");
+                                    stopAnimation();
+                                    var ctx = document.getElementById("myCanvas").getContext("2d");
+                                    ctx.drawImage(pictGame, pictGameX, pictGameY, pictGameW, pictGameH);
+                                    alert("Game over!");
+                                    loseGame = true;
+                                }
+
+                                }
+
+
+                            }
+
+                            else if (fightOrc === "no" || fightOrc === "") {
+                                alert("You fled from the orc");
+                                setTimeout(resetOrcPrompt, 1000);
+
+                                function resetOrcPrompt() {
+                                    fightOrcPrompt = false;
+                                }
+
+                            }
+
+                            else {
+                                alert("Please type Yes or No.");
+                                setTimeout(resetOrcPrompt2, 1000);
+
+                                function resetOrcPrompt2() {
+                                    fightOrcPrompt = false;
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+
+
+
+            }
+
+//            /**If the character is on lava, "Kill" the player**/
+             else if ((pictX === 0 && pictY === 300) || (pictX === 50 && pictY === 350) || (pictX === 100 && pictY === 350) || (pictX === 150 && pictY === 400) || (pictX === 200 && pictY === 400) || (pictX === 250 && pictY === 450)) {
+
+                 if (lavaPrompt === false) {
+                     setTimeout(lavaAlert, 10);
+
+                     lavaPrompt = true;
+                 function lavaAlert() {
+                     alert("You stepped In lava!");
+                     stopAnimation();
+                     var ctx = document.getElementById("myCanvas").getContext("2d");
+                     ctx.drawImage(pictGame, pictGameX, pictGameY, pictGameW, pictGameH);
+                     alert("Game over!");
+                     loseGame = true;
+                 }
+                }
+            }
+        }
+
+        var goldPrompt = false;
+//        /**Checks to see if gold dropped by orc is collected**/
+        function getGold() {
+            if(pictGX === pictX && pictGY === pictY) {
+
+                setTimeout(pickUpGold, 300);
+
+                function pickUpGold() {
+                    if (goldPrompt === false) {
+                        pictGX = 1000;
+                        pictGY = 1000;
+                        alert("You Picked Up Gold!");
+                        scoreCount++;
+                        goldPrompt = true;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        var goldPrompt2 = false;
+//        /**Checks to see if gold (found on map) is collected**/
+        function getGold2() {
+            if(pictG2X === pictX && pictG2Y === pictY) {
+
+                setTimeout(pickUpGold2, 300);
+
+                function pickUpGold2() {
+                    if (goldPrompt2 === false) {
+                        pictG2X = 1000;
+                        pictG2Y = 1000;
+                        alert("You Picked Up Gold!");
+                        scoreCount++;
+                        goldPrompt2 = true;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+
+
+    </script>
+
+
+</head>
+<body onload="initialize()">
+<canvas id="myCanvas" width="800" height="500"
+        style="border:1px solid #000000;">Your Browser does not support HTML canvas
+</canvas>
+<p id="scoreCount"></p>
+<button type="button" onclick="startAnimation()">Start</button>
+<button type="button" onclick="stopAnimation()">Stop</button>
+<br>
+<p>Fight the Orc (He might kill ya), get gold, and avoid the lava (It <b>will</b> kill you)</p>
+
+</body>
+</html>

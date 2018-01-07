@@ -1,0 +1,749 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Frogger</title>
+
+    <link rel="stylesheet" type="text/css" href="index.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+    <script>
+        var snd = new Audio("Audio/song.wav"); //Buffers new audio automatically when created
+        snd.loop = 1000;
+        snd.volume = .25;
+
+        var jumpSnd = new Audio("Audio/jump.mp3");
+        jumpSnd.volume = 0.15;
+
+        var waterSnd = new Audio("Audio/water.mp3");
+
+        var deadSnd = new Audio("Audio/dead.mp3");
+        deadSnd.volume = 1;
+
+        var gameOverSnd = new Audio("Audio/gameOver.wav");
+        gameOverSnd.volume = 0;
+
+        var a;
+        var animateOn = false;  //Determines if animation is active
+        var scoreCount = 0;
+        var highScore = 0;
+        var pictArray = []; //Contains Car pictures.
+        var pictArrayLillyPad = [];
+
+        var truck = new Image();
+        truck.src = "pictures/truck.png";
+
+        var truckB = new Image();
+        truckB.src = "pictures/truckBackwards.png";
+
+        var car = new Image();
+        car.src = "pictures/car.png";
+
+        var lilly = new Image();
+        lilly.src = "pictures/lilly.jpg";
+
+        var finish = new Image();
+        finish.src = "pictures/finishline.png";
+
+        //Frog Images
+        var frog = new Image();
+        frog.src = "pictures/frog.png";
+        var frogR = new Image();
+        frogR.src = "pictures/frogR.png";
+        var frogL = new Image();
+        frogL.src = "pictures/frogL.png";
+        var frogB = new Image();
+        frogB.src = "pictures/frogB.png";
+        var frogGuy;
+
+        var health = new Image();
+        health.src = "pictures/heart.png";
+        var heart;
+        var lifeCount;
+
+        var gameOver = new Image();
+        gameOver.src = "pictures/Game Over.jpg";
+        var gameO;
+
+        //lane X coordinate locations
+        var laneLoc3 = [0, 550];
+        var laneLoc2 = [-50, 400, 750];
+        var laneLoc1 = [-50, 200, 650];
+
+        //Determines if a slot has already been gotten
+        var slotOne = false;
+        var slotTwo = false;
+        var slotThree = false;
+
+        var onLilly = false;
+        var frogGoal;   //A picture of the frog to be idle when a goal is already scored
+
+        //Speed for each lane
+        var lastLaneSpeed = 8;
+        var secondLaneSpeed = 6;
+        var firstLaneSpeed = 5;
+
+        //Level needed to beat to unlock the extra lane
+        var extraLaneLvl = 2;
+
+
+        function initialize() {
+            var ctx = document.getElementById("myCanvas").getContext("2d");
+            lifeCount = 3;
+
+            //Second Lane
+            pictArray.push(createImage(car.src, "Car", 0, 350, 50, 50)); //[0]
+            pictArray.push(createImage(car.src, "Car", 400, 350, 50, 50)); //[1]
+            pictArray.push(createImage(car.src, "Car", 800, 350, 50, 50)); //[2]
+
+            //First Lane
+            pictArray.push(createImage(truck.src, "truck", -50, 400, 100, 50)); //[3]
+            pictArray.push(createImage(truck.src, "truck", 200, 400, 100, 50)); //[4]
+            pictArray.push(createImage(truck.src, "truck", 650, 400, 100, 50)); //[5]
+
+            //Last lane
+            pictArray.push(createImage(truckB.src, "truck", 0, 300, 100, 50)); //[6]
+            pictArray.push(createImage(truckB.src, "truck", 550, 300, 100, 50)); //[7]
+
+            //Extra lane When level allows it
+            pictArray.push(createImage(truckB.src, "truck", 50, 450, 100, 50)); //[8]
+            pictArray.push(createImage(truckB.src, "truck", 500, 450, 100, 50)); //[9]
+
+            //Still lily pads
+            pictArrayLillyPad.push(createImage(lilly.src, "Lilly", 150, 50, 50, 50)); //[0]
+            pictArrayLillyPad.push(createImage(lilly.src, "Lilly", 450, 50, 50, 50)); //[1]
+            pictArrayLillyPad.push(createImage(lilly.src, "Lilly", 750, 50, 50, 50)); //[2]
+
+            //lilly pads
+            var lilyX =  150;
+
+            var lilyY = 100;
+            pictArrayLillyPad.push(createImage(lilly.src, "Lilly", 200, lilyY, 50, 50)); //[3]
+            pictArrayLillyPad.push(createImage(lilly.src, "Lilly", 650, lilyY, 50, 50)); //[4]
+
+
+            for (i=0; i < 3; i++){
+                pictArrayLillyPad.push(createImage(lilly.src, "Lilly", lilyX, lilyY, 50, 50));
+                lilyX+= 300;
+                pictArrayLillyPad.push(createImage(lilly.src, "Lilly", lilyX, lilyY, 50, 50));
+                lilyX+= 300;
+                pictArrayLillyPad.push(createImage(lilly.src, "Lilly", lilyX, lilyY, 50, 50));
+                lilyY+= 50;
+                lilyX-= 700;
+                if (i === 1) {
+                    pictArrayLillyPad.push(createImage(lilly.src, "Lilly", 200, 150, 50, 50)); //[8]
+                    lilyX+= 50;
+                }
+            }
+            pictArrayLillyPad.push(createImage(lilly.src, "Lilly", 250, 200, 50, 50)); //[15]
+            pictArrayLillyPad.push(createImage(lilly.src, "Lilly", 550, 200, 50, 50)); //[16]
+            pictArrayLillyPad.push(createImage(lilly.src, "Lilly", 500, 200, 50, 50)); //[17]
+
+            drawBackground();
+            drawRoads();
+            drawLily();
+
+            for (i = 0; i < pictArray.length -2; i++) {
+
+                ctx.drawImage(pictArray[i], pictArray[i].left, pictArray[i].top, pictArray[i].width, pictArray[i].height);
+            }
+
+            for (i = 0; i < pictArrayLillyPad.length; i++) {
+
+                ctx.drawImage(pictArrayLillyPad[i], pictArrayLillyPad[i].left, pictArrayLillyPad[i].top, pictArrayLillyPad[i].width, pictArrayLillyPad[i].height);
+            }
+
+            frogGuy = createImage(frog.src, "Frog", 450, 500, 50, 50);
+            ctx.drawImage(frogGuy, frogGuy.left, frogGuy.top, frogGuy.width, frogGuy.height);
+
+            finishLine();
+
+            drawScores();
+
+            heart = createImage(health.src, "Heart", 0, 0, 50, 50);
+            ctx.drawImage(heart, 800, 0, heart.width, heart.height);
+            ctx.drawImage(heart, 850, 0, heart.width, heart.height);
+            ctx.drawImage(heart, 900, 0, heart.width, heart.height);
+
+        }
+
+
+        var createImage = function(src, title, xCoord, yCoord, imageWidth, imageHeight) {
+            var img = new Image();
+            img.src = src;
+            img.alt = title;
+            img.title = title;
+            img.left = xCoord;
+            img.top = yCoord;
+            img.width = imageWidth;
+            img.height = imageHeight;
+            return img;
+
+        };
+
+
+        function startAnimation() {
+            if (animateOn === false) {
+                animateOn = true;
+                snd.play();
+                frog.left = 450;
+                frog.top = 500;
+                animate();
+        }
+
+             else if(animateOn === true) {
+                 alert("Please hit restart");
+             }
+        }
+
+
+        function stopAnimation() {
+            cancelAnimationFrame(a);
+            snd.pause();
+            snd.currentTime = 0;
+            animateOn = false;
+            resetFrog();
+        }
+
+
+        function animate(){
+            a = requestAnimationFrame(animate);
+
+            ifOnDirt();
+            onLillyPad();
+
+            drawBackground();
+            drawRoads();
+            drawLily();
+
+            frogDrown();
+
+            finishLine();
+
+            drawScores();
+
+            lilyWallForward();
+            lilyWallBackward();
+
+            drawCar();
+            drawFrogGuy();
+
+            frogGuyCollision();
+            checkLife();
+
+            carWallForward();
+            carWallBackwards();
+
+            goalGet();
+            drawScores();
+
+        }
+
+
+        //Finds the value of the players life count and responds accordingly
+        function checkLife() {
+            var ctx = document.getElementById("myCanvas").getContext("2d");
+            heart = createImage(health.src, "Heart", 0, 0, 50, 50);
+
+
+            if (lifeCount === 3) {
+                ctx.drawImage(heart, 800, 0, heart.width, heart.height);
+                ctx.drawImage(heart, 850, 0, heart.width, heart.height);
+                ctx.drawImage(heart, 900, 0, heart.width, heart.height);
+            }
+
+            else if (lifeCount === 2) {
+                ctx.drawImage(heart, 800, 0, heart.width, heart.height);
+                ctx.drawImage(heart, 850, 0, heart.width, heart.height);
+
+            }
+
+            else if (lifeCount === 1) {
+                ctx.drawImage(heart, 800, 0, heart.width, heart.height);
+
+            }
+
+            else if (lifeCount === 0) {
+                snd.pause();
+                snd.currentTime = 0;
+
+                //Stops any sound file currently active
+                jumpSnd.currentTime = 0;
+                waterSnd.currentTime = 0;
+                deadSnd.currentTime = 0;
+
+                gameOverSnd.play();
+                setTimeout(loseAlert, 1);
+
+                function loseAlert() {
+                    gameO = createImage(gameOver.src, "Game Over", 0, 0, 1000, 550);
+                    ctx.drawImage(gameO, 0, 0, 1000, 550);
+                    stopAnimation();
+                    lifeCount = 3;
+                    animateOn = true;
+                    scoreCount = 0;
+                    document.getElementById("scoreCount").innerHTML = "Score: " + scoreCount;
+                }
+            }
+        }
+
+
+        function drawBackground() {
+            var ctx = document.getElementById("myCanvas").getContext("2d");
+            ctx.fillStyle = "rgb(27, 102, 10)";
+            ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+        }
+
+
+        function drawRoads() {
+            var ctx = document.getElementById("myCanvas").getContext("2d");
+            ctx.fillStyle = "#111111";
+            ctx.fillRect(0, 300, window.innerWidth, 50);
+            ctx.fillRect(0, 350, window.innerWidth, 50);
+            ctx.fillRect(0, 400, window.innerWidth, 50);
+
+            if (scoreCount > extraLaneLvl) {
+                ctx.fillRect(0, 450, window.innerWidth, 50);
+            }
+
+        }
+
+
+        function drawCar() {
+
+            for (i = 0; i < pictArray.length - 2; i++) {
+                var ctx = document.getElementById("myCanvas").getContext("2d");
+                ctx.drawImage(pictArray[i], pictArray[i].left, pictArray[i].top, pictArray[i].width, pictArray[i].height);
+
+                //If extraLaneLvl is beaten, a new lane is added
+                if (scoreCount > extraLaneLvl) {
+                        ctx.drawImage(pictArray[8], pictArray[8].left, pictArray[8].top, pictArray[8].width, pictArray[8].height);
+                        ctx.drawImage(pictArray[9], pictArray[9].left, pictArray[9].top, pictArray[9].width, pictArray[9].height);
+                }
+            }
+
+            //Extra lane
+            pictArray[8].left-= secondLaneSpeed;
+            pictArray[9].left-= secondLaneSpeed;
+
+            //Last Lane
+            pictArray[6].left-= lastLaneSpeed;
+            pictArray[7].left-= lastLaneSpeed;
+
+            //Second Lane
+            pictArray[0].left+= secondLaneSpeed;
+            pictArray[1].left+= secondLaneSpeed;
+            pictArray[2].left+= secondLaneSpeed;
+
+            //First Lane
+            pictArray[3].left+= firstLaneSpeed;
+            pictArray[4].left+= firstLaneSpeed;
+            pictArray[5].left+= firstLaneSpeed;
+        }
+
+
+        function drawFrogGuy() {
+            var ctx = document.getElementById("myCanvas").getContext("2d");
+            ctx.drawImage(frogGuy, frogGuy.left, frogGuy.top, frogGuy.width, frogGuy.height);
+        }
+
+
+        $(document).keydown(function (event) {
+
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+
+        if (animateOn === true) {
+
+                if (((keycode === 65) || (keycode === 37)) && (frogGuy.left > 0)) //A Key or Left arrow
+                {
+                    //if jump sound is currently active, terminate it, then play again
+                    if (jumpSnd.currentTime < .35) {
+                        jumpSnd.currentTime = 0;
+                    }
+                    jumpSnd.play();
+                    frogGuy.left = frogGuy.left - 50;
+                    //Changes image to frog facing left
+                    frogGuy = createImage(frogL.src, "FrogL", frogGuy.left, frogGuy.top, 50, 50);
+                }
+
+                if ((keycode === 87) || (keycode === 38)) //W Key or Up arrow key
+                {
+                    //if jump sound is currently active, terminate it, then play again
+                    if (jumpSnd.currentTime < .35) {
+                        jumpSnd.currentTime = 0;
+                    }
+                    jumpSnd.play();
+                    frogGuy.top = frogGuy.top - 50;
+                    //Changes image to frog facing forwards
+                    frogGuy = createImage(frog.src, "Frog", frogGuy.left, frogGuy.top, 50, 50);
+                }
+
+                if (((keycode === 83) || (keycode === 40)) && (frogGuy.top + frogGuy.height < 550)) //S Key or Down arrow key
+                {
+                    //if jump sound is currently active, terminate it, then play again
+                    if (jumpSnd.currentTime < .35) {
+                        jumpSnd.currentTime = 0;
+                    }
+                    jumpSnd.play();
+                    frogGuy.top = frogGuy.top + 50;
+                    //Changes image to frog facing backwards
+                    frogGuy = createImage(frogB.src, "FrogB", frogGuy.left, frogGuy.top, 50, 50);
+                }
+
+                if (((keycode === 68) || (keycode === 39)) && (frogGuy.left + frogGuy.height < 950)) //D Key or Right arrow key
+                {
+                    //if jump sound is currently active, terminate it, then play again
+                    if (jumpSnd.currentTime < .35) {
+                        jumpSnd.currentTime = 0;
+                    }
+                    jumpSnd.play();
+                    frogGuy.left = frogGuy.left + 50;
+                    //Changes image to frog facing right
+                    frogGuy = createImage(frogR.src, "FrogR", frogGuy.left, frogGuy.top, 50, 50);
+                }
+
+            }
+
+            //I added this because i wanted to have a way to play this music while i worked on a loop
+            if (keycode === 187){
+                snd = new Audio("Audio/Sun and Moon Hau'oli City Remix.mp3");
+                snd.loop = 1000;
+                snd.volume = 100;
+            }
+
+        });
+
+
+        //This function will determine if the frog has collided with any vehicles
+        function frogGuyCollision() {
+            for (i = 0; i < pictArray.length - 2; i++) {
+                if (frogGuy.left + frogGuy.width > pictArray[i].left && frogGuy.left < pictArray[i].left + pictArray[i].width && frogGuy.top + frogGuy.height > pictArray[i].top && frogGuy.top < pictArray[i].top + pictArray[i].height) {
+
+                    //if dead sound is currently active, terminate it, then play again
+                    if (deadSnd.currentTime < .35) {
+                            deadSnd.currentTime = 0;
+                        }
+
+                    deadSnd.play();
+                    resetFrog();
+                    lifeCount--;
+                }
+
+
+                //the folllowing statement determines if the frog has hit a car from the "extra lane" only when it is active
+                if (scoreCount > extraLaneLvl) {
+                    if ((frogGuy.left + frogGuy.width > pictArray[8].left && frogGuy.left < pictArray[8].left + pictArray[8].width && frogGuy.top + frogGuy.height > pictArray[8].top && frogGuy.top < pictArray[8].top + pictArray[8].height) || (frogGuy.left + frogGuy.width > pictArray[9].left && frogGuy.left < pictArray[9].left + pictArray[9].width && frogGuy.top + frogGuy.height > pictArray[9].top && frogGuy.top < pictArray[9].top + pictArray[9].height)){
+
+                        //if dead sound is currently active, terminate it, then play again
+                        if (deadSnd.currentTime < 0) {
+                                deadSnd.currentTime = 0;
+                            }
+
+                        deadSnd.play();
+                        resetFrog();
+                        lifeCount--;
+                    }
+                }
+            }
+        }
+
+
+        //determines if the cars have passes the left wall
+        function carWallForward() {
+
+            for (i = 6; i < pictArray.length ; i++) {
+                if (pictArray[i].left + pictArray[i].width <= -100) {
+                    pictArray[i].left = 1000;
+                }
+            }
+
+        }
+
+
+        //determines if the cars have passes the right wall
+        function carWallBackwards() {
+
+            for (i = 1; i < pictArray.length - 4; i++) {
+                if (pictArray[i].left + pictArray[i].width >= 1100) {
+                    pictArray[i].left = -100;
+                }
+            }
+
+        }
+
+
+        //draws the finish line and the goals
+        function finishLine() {
+            var ctx = document.getElementById("myCanvas").getContext("2d");
+            frogGoal = createImage(frog.src, "Frog", 450, 500, 50, 50);
+
+            ctx.fillStyle = "#964B00";
+            ctx.fillRect(0, 0, 1000, 50);
+
+            ctx.lineWidth = 5;
+            ctx.strokeStyle = "black";
+            ctx.beginPath();
+            ctx.moveTo(0, 47.5);
+            ctx.lineTo(1000, 47.5);
+            ctx.stroke();
+
+            ctx.fillStyle = "black";
+            ctx.fillRect(450, 0, 50, 50);
+            ctx.fillRect(750, 0, 50, 50);
+            ctx.fillRect(150, 0, 50, 50);
+
+
+            //the following adds an idle frog if a goal has already been scored upon
+            if (slotOne === true) {
+                ctx.drawImage(frogGoal, 150, 0, frogGoal.width, frogGoal.height);
+            }
+
+            if (slotTwo === true) {
+                ctx.drawImage(frogGoal, 450, 0, frogGoal.width, frogGoal.height);
+            }
+
+            if (slotThree === true) {
+                ctx.drawImage(frogGoal, 750, 0, frogGoal.width, frogGoal.height);
+            }
+
+        }
+
+
+        //this function prohibits the frog from passing the last 50 pixels unless to score a goal
+        function ifOnDirt() {
+            if (((frogGuy.left > -50) && (frogGuy.left < 145)) && frogGuy.top < 50) {
+                frogGuy.top+=50;
+            }
+
+            //only in effect if first goal is scored
+            else if ((slotOne === true) && (((frogGuy.left > 145)&& (frogGuy.left < 205)) && (frogGuy.top < 50))) {
+                frogGuy.top+=50;
+            }
+
+            else if (((frogGuy.left > 205) && (frogGuy.left < 445)) && frogGuy.top < 50) {
+                frogGuy.top+=50;
+            }
+
+            //only in effect if second goal is scored
+            else if ((slotTwo === true) && (((frogGuy.left > 445)&& (frogGuy.left < 505)) && (frogGuy.top < 50))) {
+                frogGuy.top+=50;
+            }
+
+            else if (((frogGuy.left > 505) && (frogGuy.left < 745)) && frogGuy.top < 50) {
+                frogGuy.top+=50;
+            }
+
+            //only in effect if third goal is scored
+            else if ((slotThree === true) && (((frogGuy.left > 745)&& (frogGuy.left < 805)) && (frogGuy.top < 50))) {
+                frogGuy.top+=50;
+            }
+
+            else if (((frogGuy.left > 805) && (frogGuy.left < 1050)) && frogGuy.top < 50) {
+                frogGuy.top+=50;
+            }
+        }
+
+
+        function goalGet() {
+
+            //when all three goals are scored
+            if ((slotOne === true) && (slotTwo === true) && (slotThree === true)) {
+
+                //reset the goal booleans
+                slotOne = false;
+                slotTwo = false;
+                slotThree = false;
+
+                scoreCount++;
+                firstLaneSpeed+= 1;
+                secondLaneSpeed+= 1;
+                lastLaneSpeed+= 1;
+                drawScores();
+
+                if (highScore < scoreCount){
+                    highScore = scoreCount;
+                    drawScores();
+                }
+
+                //Player has "won" game
+                if (scoreCount === 5) {
+                    alert("You have reached the last TRUE Level, Congrats! \nYou may continue if you wish!")
+                }
+            }
+
+
+            //the following determines if the player has scored a goal
+            if (((frogGuy.left > 145) && (frogGuy.left < 205)) && (frogGuy.top === 0)) {
+                resetFrog();
+                slotOne = true;
+            }
+
+            if (((frogGuy.left > 445) && (frogGuy.left < 505)) && (frogGuy.top === 0)) {
+                resetFrog();
+                slotTwo = true;
+            }
+
+            if (((frogGuy.left > 745) && (frogGuy.left < 805)) && (frogGuy.top === 0)) {
+                resetFrog();
+                slotThree = true;
+            }
+        }
+
+
+        function drawLily() {
+            var rowOne = 2;
+            var rowTwo = 3;
+            var rowThree = 1;
+            var ctx = document.getElementById("myCanvas").getContext("2d");
+
+            //Draws water
+            ctx.fillStyle = "#3e62ad";
+            ctx.fillRect(0, 50, 1000, 200);
+
+
+            //the following draws lily pads
+            for (i = 0; i < pictArrayLillyPad.length; i++) {
+
+                ctx.drawImage(pictArrayLillyPad[i], pictArrayLillyPad[i].left, pictArrayLillyPad[i].top, pictArrayLillyPad[i].width, pictArrayLillyPad[i].height);
+
+            }
+
+            for (i = 0; i < 3; i++) {
+                pictArrayLillyPad[i].left-= rowOne;
+            }
+
+            for (i = 3; i < 8; i++) {
+                pictArrayLillyPad[i].left+= rowOne;
+            }
+
+            for (i = 8; i < 12; i++) {
+                pictArrayLillyPad[i].left-= rowTwo;
+            }
+
+            for (i = 12; i < 18; i++) {
+                pictArrayLillyPad[i].left+= rowThree;
+            }
+
+        }
+
+
+        //this function determines if the frog is currently on a lily pad
+        function onLillyPad() {
+            onLilly = false;
+            for (i = 0; i < pictArrayLillyPad.length; i++) {
+                if ((frogGuy.left + frogGuy.width) > (pictArrayLillyPad[i].left) && ((frogGuy.left) < (pictArrayLillyPad[i].left + pictArrayLillyPad[i].width)) && (((frogGuy.top + frogGuy.height) > (pictArrayLillyPad[i].top)) && ((frogGuy.top) < (pictArrayLillyPad[i].top + pictArrayLillyPad[i].height)))) {
+                    onLilly = true;
+                    frogGuy.left = pictArrayLillyPad[i].left;
+                }
+            }
+        }
+
+
+        //determines if the cars have passes the right wall
+        function lilyWallForward() {
+
+            for (i = 3; i < pictArrayLillyPad.length ; i++) {
+                if (pictArrayLillyPad[i].left + pictArrayLillyPad[i].width >= 1050) {
+                    pictArrayLillyPad[i].left = -50;
+                }
+            }
+        }
+
+
+        //determines if the cars have passes the left wall
+        function lilyWallBackward() {
+            for(i=8; i<12 ;i++){
+                if (pictArrayLillyPad[i].left <= -50) {
+                    pictArrayLillyPad[i].left = 950;
+                }
+            }
+
+            for(i=0; i<3 ;i++){
+                if (pictArrayLillyPad[i].left <= -50) {
+                    pictArrayLillyPad[i].left = 950;
+                }
+            }
+        }
+
+
+        //if the frog falls in the water, he is reset ans losses a life
+        function frogDrown() {
+            if (((frogGuy.left + frogGuy.width > 0) && (frogGuy.left < 1000) && (frogGuy.top + frogGuy.height) > 50 && (frogGuy.top < 250)) && (onLilly === false)){
+                waterSnd.play();
+                lifeCount--;
+                resetFrog();
+            }
+        }
+
+
+        //adds the level ans high score to the canvas
+        function drawScores() {
+            var canvas = document.getElementById('myCanvas');
+            var ctx = canvas.getContext('2d');
+
+            ctx.fillStyle = "#111111";
+
+            ctx.font = 'italic 25pt Calibri';
+            ctx.fillText('Level: ' + scoreCount, 5, 30);
+            ctx.fillText('High Score: ' + highScore, 208, 30);
+
+        }
+
+
+        //activated when the reset button is pressed, resets everything
+        function restartGame() {
+            animateOn = false;
+            scoreCount = 0;
+            resetFrog();
+            lifeCount = 3;
+
+            lastLaneSpeed = 8;
+            secondLaneSpeed = 6;
+            firstLaneSpeed = 5;
+
+            pictArray[0].left = laneLoc2[0];
+            pictArray[1].left = laneLoc2[1];
+            pictArray[2].left = laneLoc2[2];
+
+            pictArray[3].left = laneLoc1[0];
+            pictArray[4].left = laneLoc1[1];
+            pictArray[5].left = laneLoc1[2];
+
+            pictArray[6].left = laneLoc3[0];
+            pictArray[7].left = laneLoc3[1];
+            slotOne = false;
+            slotTwo = false;
+            slotThree = false;
+
+            setTimeout(stopGame, 10);
+
+            function stopGame() {
+                stopAnimation();
+                alert("game has been Reset, Please click Start to begin again");
+            }
+        }
+
+
+        //puts frog in starting position
+        function resetFrog() {
+            frogGuy.left = 450;
+            frogGuy.top = 500;
+        }
+
+
+    </script>
+</head>
+<body onload="initialize()">
+<canvas id="myCanvas" width="950" height="550"
+        style="border:1px solid #000000;">Canvas Not Supported
+</canvas>
+<br>
+<button type="button" class="btn" onclick="startAnimation()">Start</button>
+<button type="button" class="btn" onclick="stopAnimation()">Stop</button>
+<button type="button" class="btn" onclick="restartGame()">Restart</button>
+<br>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wheel Of Fortune</title>
+
+    <script src="index.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="StyleSheets/index.css">
+
+
+
+
+
+</head>
+<body>
+
+
+
+
+
+
+<button type="button" onclick="startGame(1)">1 Player</button>
+<button type="button" onclick="startGame(2)">2 Players</button> <button type="button" onclick="refreshGame()">Refresh</button>
+<p id="playerNameDisplay">Name:</p>
+<p id="scoreCount">Winnings: $0</p>
+
+
+<br>
+
+
+<p class="moneyText">Money up for Grabs: </p>
+<p id="amountOfMoney">   </p>
+
+
+<br>
+
+
+<!-- <button type="button" onclick="pushLetter()" id="getWord">Get word!</button> -->
+<p id="textWord">Word:</p>
+<p id="showWord"></p>
+
+<button type="button" onclick="getValues()">Spin the Wheel!</button>
+
+
+<br>
+<br>
+
+
+
+<img id="wheelPic" src="Wheel%20Images/wheel01.jpg" width="100" height="100">
+
+
+<br>
+
+
+<br>
+
+
+<button type="button" onclick="isDouble()">Check a Letter</button>
+<input type="text" id="letterInput">
+<p>Please Note: Buying a Vowel costs $250</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

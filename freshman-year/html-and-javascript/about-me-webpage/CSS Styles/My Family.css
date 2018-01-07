@@ -1,0 +1,68 @@
+body {
+    background-color: #dbdbdb;
+}
+
+
+
+h1 {
+    padding-top: 20px;
+    color: #4a187a;
+    text-align: center;
+    font-family: "Comic Sans MS";
+
+}
+
+h2 {
+
+    color: #4a187a;
+    text-align: center;
+    font-family: "Comic Sans MS";
+}
+
+.a {
+
+    padding:30px;
+}
+
+#b {
+
+    margin-top:30px;
+    background-color: #dbdbdb;
+
+}
+
+.center{
+
+    color: #4a187a;
+    text-align: center;
+    font-family: "Comic Sans MS";
+}
+#names{
+    
+    font-size: 400%;
+
+}
+
+p{
+    
+    font-family: "Comic Sans MS";
+    font-size: 75px;
+    text-align: center;
+}
+
+
+
+
+
+a{
+
+    text-decoration: none;
+}
+
+p a:hover:not(.active) {
+    color: darkgreen;
+}
+
+.v {
+    color: black;
+}

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="340.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gradebook.project.FXMLDocumentController">
+
+    <children>
+        
+        <!--<Button fx:id="buttonGrade" layoutX="71.0" layoutY="51.0" onAction="#handleAddGrade" text="Add a grade" />-->
+        
+        <Label fx:id="lblTotalGrade" alignment="CENTER" layoutX="230.0" layoutY="153.0" minHeight="16" minWidth="69" text="Total Grade:" />
+        <Label fx:id="lblHomework" layoutX="230.0" layoutY="51.0" prefHeight="17.0" prefWidth="272.0" text="Homework:" />
+        <Label fx:id="lblQuiz" layoutX="230.0" layoutY="79.0" prefHeight="17.0" prefWidth="263.0" text="Quiz:" />
+        <Label fx:id="lblTest" layoutX="230.0" layoutY="109.0" prefHeight="17.0" prefWidth="263.0" text="Test:" />
+        
+        <MenuButton layoutX="69.0" layoutY="47.0" mnemonicParsing="false" text="Add Grade">
+          <items>
+              <MenuItem mnemonicParsing="false" onAction="#handleGradeHomework" text="Homework" />
+              <MenuItem mnemonicParsing="false" onAction="#handleGradeQuiz" text="Quiz" />
+              <MenuItem mnemonicParsing="false" onAction="#handleGradeTest" text="Test" />
+          </items>
+        </MenuButton>
+        
+        <Button layoutX="69.0" layoutY="216.0" mnemonicParsing="false" onAction="#handleSetWeight" text="Change Grade weight" />
+        <Label fx:id="lblWeight" layoutX="230.0" layoutY="220.0" prefHeight="17.0" prefWidth="361.0" text="Homework: 20%, Quizzes: 30%, Tests: 50%" />
+        
+    </children>
+
+</AnchorPane>
