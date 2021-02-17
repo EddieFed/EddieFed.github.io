@@ -1,3 +1,6 @@
 [submodule "junior/Battle-For-Charity"]
 	path = junior/Battle-For-Charity
 	url = https://github.com/FilipOsowski/Battle-For-Charity.git
+[submodule "senior/free-games-alert"]
+	path = senior/free-games-alert
+	url = https://github.com/EddieFed/free-games-alert.git

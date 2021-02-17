@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="780.0" prefWidth="1115.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="server.ControllerServer">
+   <children>
+      <ImageView fitHeight="900.0" fitWidth="1120.0" pickOnBounds="true">
+         <image>
+            <Image url="@../resources/table.jpg" />
+         </image>
+      </ImageView>
+      <GridPane layoutX="535.0" layoutY="440.0" prefHeight="240.0" prefWidth="50.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ImageView fx:id="imageUp1" fitHeight="70.0" fitWidth="50.0" onMouseClicked="#updateScreen" pickOnBounds="true">
+               <image>
+                  <Image url="@../cards/BC13.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageUp2" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="-18.0" pickOnBounds="true" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../cards/RD12.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageUp3" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="-4.0" pickOnBounds="true" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../cards/BC11.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageUp4" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="15.0" pickOnBounds="true" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../cards/RH10.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageUp5" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="31.0" pickOnBounds="true" GridPane.rowIndex="4">
+               <image>
+                  <Image url="@../cards/BC9.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageUp6" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="47.0" pickOnBounds="true" GridPane.rowIndex="5">
+               <image>
+                  <Image url="@../cards/RD8.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageUp7" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="63.0" pickOnBounds="true" GridPane.rowIndex="6">
+               <image>
+                  <Image url="@../cards/BS7.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageUp8" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="79.0" pickOnBounds="true" GridPane.rowIndex="7">
+               <image>
+                  <Image url="@../cards/RD6.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageUp9" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="88.0" pickOnBounds="true" GridPane.rowIndex="8">
+               <image>
+                  <Image url="@../cards/BC5.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageUp10" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="94.0" pickOnBounds="true" GridPane.rowIndex="9">
+               <image>
+                  <Image url="@../cards/RH4.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageUp11" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="149.0" pickOnBounds="true" GridPane.rowIndex="10">
+               <image>
+                  <Image url="@../cards/BC3.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageUp12" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="168.0" pickOnBounds="true" GridPane.rowIndex="11">
+               <image>
+                  <Image url="@../cards/RH2.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageUp13" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="187.0" pickOnBounds="true" GridPane.rowIndex="12">
+               <image>
+                  <Image url="@../cards/BC1.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </GridPane>
+      <GridPane layoutX="535.0" layoutY="100.0" prefHeight="240.0" prefWidth="50.0" rotate="180.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <ImageView fx:id="imageDown1" fitHeight="70.0" fitWidth="50.0" onMouseClicked="#updateScreen" pickOnBounds="true">
+               <image>
+                  <Image url="@../cards/BC13.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageDown2" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="-18.0" pickOnBounds="true" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../cards/RH12.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageDown3" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="-4.0" pickOnBounds="true" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../cards/BC11.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageDown4" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="15.0" pickOnBounds="true" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../cards/RH10.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageDown5" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="31.0" pickOnBounds="true" GridPane.rowIndex="4">
+               <image>
+                  <Image url="@../cards/BC9.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageDown6" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="47.0" pickOnBounds="true" GridPane.rowIndex="5">
+               <image>
+                  <Image url="@../cards/RH8.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageDown7" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="63.0" pickOnBounds="true" GridPane.rowIndex="6">
+               <image>
+                  <Image url="@../cards/BC7.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageDown8" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="79.0" pickOnBounds="true" GridPane.rowIndex="7">
+               <image>
+                  <Image url="@../cards/RH6.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageDown9" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="88.0" pickOnBounds="true" GridPane.rowIndex="8">
+               <image>
+                  <Image url="@../cards/BC5.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageDown10" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="94.0" pickOnBounds="true" GridPane.rowIndex="9">
+               <image>
+                  <Image url="@../cards/RH4.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageDown11" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="149.0" pickOnBounds="true" GridPane.rowIndex="10">
+               <image>
+                  <Image url="@../cards/BC3.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageDown12" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="168.0" pickOnBounds="true" GridPane.rowIndex="11">
+               <image>
+                  <Image url="@../cards/RH2.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageDown13" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="187.0" pickOnBounds="true" GridPane.rowIndex="12">
+               <image>
+                  <Image url="@../cards/BC1.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </GridPane>
+      <GridPane layoutX="705.0" layoutY="270.0" prefHeight="240.0" prefWidth="50.0" rotate="-90.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <ImageView fx:id="imageRight1" fitHeight="70.0" fitWidth="50.0" onMouseClicked="#updateScreen" pickOnBounds="true">
+               <image>
+                  <Image url="@../cards/RH13.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageRight2" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="-18.0" pickOnBounds="true" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../cards/BC12.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageRight3" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="-4.0" pickOnBounds="true" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../cards/RH11.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageRight4" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="15.0" pickOnBounds="true" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../cards/BS10.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageRight5" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="31.0" pickOnBounds="true" GridPane.rowIndex="4">
+               <image>
+                  <Image url="@../cards/RH9.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageRight6" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="47.0" pickOnBounds="true" GridPane.rowIndex="5">
+               <image>
+                  <Image url="@../cards/BC8.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageRight7" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="63.0" pickOnBounds="true" GridPane.rowIndex="6">
+               <image>
+                  <Image url="@../cards/RH7.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageRight8" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="79.0" pickOnBounds="true" GridPane.rowIndex="7">
+               <image>
+                  <Image url="@../cards/BC6.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageRight9" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="88.0" pickOnBounds="true" GridPane.rowIndex="8">
+               <image>
+                  <Image url="@../cards/RH5.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageRight10" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="94.0" pickOnBounds="true" GridPane.rowIndex="9">
+               <image>
+                  <Image url="@../cards/BC4.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageRight11" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="149.0" pickOnBounds="true" GridPane.rowIndex="10">
+               <image>
+                  <Image url="@../cards/RH3.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageRight12" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="168.0" pickOnBounds="true" GridPane.rowIndex="11">
+               <image>
+                  <Image url="@../cards/BC2.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageRight13" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="187.0" pickOnBounds="true" GridPane.rowIndex="12">
+               <image>
+                  <Image url="@../cards/RH1.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </GridPane>
+      <GridPane layoutX="365.0" layoutY="270.0" prefHeight="240.0" prefWidth="50.0" rotate="90.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <ImageView fx:id="imageLeft1" fitHeight="70.0" fitWidth="50.0" onMouseClicked="#updateScreen" pickOnBounds="true">
+               <image>
+                  <Image url="@../cards/RH13.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageLeft2" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="-18.0" pickOnBounds="true" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../cards/BS12.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageLeft3" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="-4.0" pickOnBounds="true" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../cards/RD11.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageLeft4" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="15.0" pickOnBounds="true" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../cards/BC10.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageLeft5" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="31.0" pickOnBounds="true" GridPane.rowIndex="4">
+               <image>
+                  <Image url="@../cards/RH9.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageLeft6" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="47.0" pickOnBounds="true" GridPane.rowIndex="5">
+               <image>
+                  <Image url="@../cards/BC8.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageLeft7" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="63.0" pickOnBounds="true" GridPane.rowIndex="6">
+               <image>
+                  <Image url="@../cards/RH7.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageLeft8" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="79.0" pickOnBounds="true" GridPane.rowIndex="7">
+               <image>
+                  <Image url="@../cards/BC6.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageLeft9" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="88.0" pickOnBounds="true" GridPane.rowIndex="8">
+               <image>
+                  <Image url="@../cards/RH5.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageLeft10" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="94.0" pickOnBounds="true" GridPane.rowIndex="9">
+               <image>
+                  <Image url="@../cards/BC4.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageLeft11" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="149.0" pickOnBounds="true" GridPane.rowIndex="10">
+               <image>
+                  <Image url="@../cards/RH3.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageLeft12" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="168.0" pickOnBounds="true" GridPane.rowIndex="11">
+               <image>
+                  <Image url="@../cards/BC2.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageLeft13" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="187.0" pickOnBounds="true" GridPane.rowIndex="12">
+               <image>
+                  <Image url="@../cards/RH1.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </GridPane>
+      <ImageView fx:id="imageBottomLeft" fitHeight="70.0" fitWidth="50.0" layoutX="468.0" layoutY="422.0" pickOnBounds="true" preserveRatio="true" rotate="45.0">
+         <image>
+            <Image url="@../cards/RD13.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imageBottomRight" fitHeight="70.0" fitWidth="50.0" layoutX="602.0" layoutY="422.0" pickOnBounds="true" preserveRatio="true" rotate="-45.0">
+         <image>
+            <Image url="@../cards/RD13.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imageTopLeft" fitHeight="70.0" fitWidth="50.0" layoutX="468.0" layoutY="288.0" pickOnBounds="true" preserveRatio="true" rotate="135.0">
+         <image>
+            <Image url="@../cards/BC13.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imageTopRight" fitHeight="70.0" fitWidth="50.0" layoutX="602.0" layoutY="288.0" pickOnBounds="true" preserveRatio="true" rotate="-135.0">
+         <image>
+            <Image url="@../cards/BS13.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="selectedCard" fitHeight="70.0" fitWidth="50.0" layoutX="1044.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="1033.0" layoutY="14.0" text="Selected card" textFill="WHITE" />
+      <ImageView fitHeight="70.0" fitWidth="50.0" layoutX="365.0" layoutY="185.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+         <image>
+            <Image url="@../cards/BACK-1.jpg" />
+         </image>
+      </ImageView>
+      <Button layoutX="355.0" layoutY="195.0" mnemonicParsing="false" onAction="#startGame" opacity="0.0" prefHeight="50.0" prefWidth="70.0" text="Start Game" textAlignment="CENTER">
+         <font>
+            <Font size="10.0" />
+         </font></Button>
+      <Label layoutX="360.0" layoutY="178.0" text="Start Game" textFill="WHITE" />
+      <Button layoutX="1024.0" layoutY="104.0" mnemonicParsing="false" onAction="#deselectCard" text="Deselect Card" />
+      <GridPane fx:id="hand2" alignment="CENTER" layoutX="50.0" layoutY="711.0" prefHeight="70.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+      </GridPane>
+      <ImageView fitHeight="70.0" fitWidth="50.0" layoutX="705.0" layoutY="189.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+         <image>
+            <Image url="@../cards/BACK-2.jpg" />
+         </image>
+      </ImageView>
+      <Button layoutX="695.0" layoutY="199.0" mnemonicParsing="false" onAction="#endTurn" opacity="0.0" prefHeight="50.0" prefWidth="70.0" text="End turn" textAlignment="CENTER">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Button>
+      <Label layoutX="707.0" layoutY="181.0" text="End turn" textFill="WHITE" />
+      <AnchorPane fx:id="disableScreen" prefHeight="900.0" prefWidth="1120.0" visible="false" />
+      <GridPane fx:id="hand1" alignment="CENTER" layoutX="774.0" layoutY="405.0" prefHeight="70.0" prefWidth="500.0" rotate="90.0" AnchorPane.leftAnchor="774.0" AnchorPane.rightAnchor="-154.0">
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+   </children>
+</AnchorPane>

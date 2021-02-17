@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="othello.game.FXMLDocumentController">
+   <children>
+      <AnchorPane fx:id="pane" prefHeight="512.0" prefWidth="512.0">
+         <children>
+            <GridPane fx:id="grid" layoutY="40.0">
+      </GridPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="40.0" prefWidth="512.0">
+         <children>
+            <Label layoutX="227.0" layoutY="12.0" text="Turn:" />
+            <ImageView fx:id="turnImage" fitHeight="15.0" fitWidth="15.0" layoutX="262.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

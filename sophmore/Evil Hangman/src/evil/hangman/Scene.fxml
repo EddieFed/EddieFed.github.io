@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="502.0" prefWidth="716.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="evil.hangman.Controller">
+  <children>
+    <Label fx:id="lblWord" alignment="CENTER" contentDisplay="CENTER" layoutX="174.0" layoutY="251.0" prefWidth="371.0" text="Label" underline="false">
+      <font>
+        <Font size="48.0" fx:id="x1" />
+      </font>
+      <textFill>
+        <Color blue="0.161" green="0.161" red="0.161" fx:id="x2" />
+      </textFill>
+    </Label>
+    <ImageView fx:id="imgHang" fitHeight="199.0" fitWidth="265.3333333333333" layoutX="226.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
+    <ListView fx:id="topList" layoutX="483.0" layoutY="39.0" prefHeight="178.0" prefWidth="200.0" visible="false" />
+    <Button fx:id="btnStart" layoutX="288.0" layoutY="349.0" mnemonicParsing="false" onAction="#handleStart" prefHeight="33.0" prefWidth="141.0" text="Click to Start Game" />
+    <Button fx:id="btnGuess" layoutX="293.0" layoutY="349.0" mnemonicParsing="false" onAction="#handleGuess" prefHeight="33.000099999997474" text="Click to Guess a Letter" />
+    <Label layoutX="483.0" layoutY="11.0" text="Top Scores List" visible="false">
+      <font>
+        <Font size="24.0" />
+      </font>
+    </Label>
+    <Label id="lblWord" fx:id="lblGuess" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="402.0" prefWidth="688.0" text="Label" textFill="$x2" underline="false">
+      <font>
+        <Font size="36.0" />
+      </font>
+    </Label>
+  </children>
+</AnchorPane>
